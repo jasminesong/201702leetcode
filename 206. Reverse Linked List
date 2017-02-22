@@ -1,0 +1,81 @@
+
+206. Reverse Linked List
+
+Reverse a singly linked list.
+
+
+Hint:
+A linked list can be reversed either iteratively or recursively. Could you implement both?
+============================================
+要求用迭代和递归两种方式解决。
+
+第一种，迭代：用head, second, third三个指针依次记录三个节点，每完成一次，将三个指针后移一步。除了第一次操作，后面的操作只用将second的next指向head即可。
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        
+        ListNode second = head.next;
+        ListNode third = head.next.next;
+        
+        second.next = head;
+        head.next = null;// 第一次的操作，比后面的每次操作，要多一点，就是要打断head对second的指向。而之后head对second的指向在上一步随着当时的second的next指向当时的head已经被打断了。
+        
+        while(third != null){
+            head = second;
+            second = third;
+            third = second.next;
+            second.next = head;
+            
+        }
+        
+        return second;
+    }
+}
+
+
+
+=========================================================
+(这是我第一次自行完成的递归)
+像盗梦空间一样，搞清楚每一层，输入和输出是什么，每一层的每一个值是谁
+=========================================================
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        
+        if(head == null || head.next == null){
+            return head;
+        }
+        if(head.next.next == null){
+            ListNode newHead = head.next;
+            newHead.next = head;
+            head.next = null;
+            return newHead;
+        }
+        ListNode end = head.next;
+        ListNode newHead = reverseList(end);
+        end.next = head;
+        head.next = null;
+        return newHead;
+    }
+
+}

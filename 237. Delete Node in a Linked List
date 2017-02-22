@@ -1,0 +1,29 @@
+237. Delete Node in a Linked List
+
+Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+
+Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, the linked list should become 1 -> 2 -> 4 after calling your function.
+========================================
+一般来说，删除节点需要知道前一个节点，但这里不知道前一个节点，所以采取的办法是将所给节点的后一个节点的值赋值给当前节点，再删除当前节点。
+这种方法不适用于链表的最后一个节点，也符合题意。
+
+=========================================
+Answer : 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+
+
+
